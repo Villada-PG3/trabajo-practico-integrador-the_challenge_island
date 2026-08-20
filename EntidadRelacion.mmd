@@ -1,0 +1,41 @@
+erDiagram
+    TEMPORADA ||--|{ EQUIPOS : contiene
+    TEMPORADA {
+        int idTemporada
+        string nombreTemporada
+        int cantidadEquipos
+        EQUIPO equipoGanador
+
+    }
+    DESAFIO {
+        int idDesafio
+        string nombreDesafio
+        string tipoDesafio
+    
+    }
+    EQUIPO {
+        int idEquipo
+        string nombreEquipo
+        PARTICIPANTE participante
+    
+    }
+    PARTICIPANTE {
+        int idParticipante
+        string nombreParticipante
+        string paisParticipante
+        string vocacion
+        string habilidadEspecial
+    }
+    ALIANZA {
+        int idAlianza
+        EQUIPO equipo1
+        EQUIPO equipo2
+        date duracionAlianza
+
+    }
+    ISLA {
+        int idIsla
+        string nombreIsla
+        string paisIsla
+        
+    }
