@@ -1,0 +1,36 @@
+classDiagram
+    Equipo o-- Participante
+    Temporada <|-- Equipo
+    Ronda <|-- Eliminacion
+    Ronda <|-- Desafio
+
+    class Participante{
+        -string nombre
+        -string apellido
+        -string apodo
+        -string paisOrigen
+        -string habilidadesEspeciales
+    }
+    class Equipo{
+        -string nombre
+        -date orderDate
+        -string status
+    }
+    class Desafio{
+        -float price        
+    }
+    class Temporada{
+        -string nombre
+        -float price        
+    }
+    class Eliminacion{
+        -Equipo equipoEliminado
+    }
+    class Ronda{
+        -string nombre
+    }
+    class Alianza{
+        -string nombre
+        -Equipo equipo1
+        -Equipo equipo2
+    }
