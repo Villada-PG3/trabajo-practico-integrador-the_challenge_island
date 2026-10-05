@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}The Challenge Island{% endblock %}</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+	{% block extra_css %}{% endblock %}
+
+</head>
+<body class="{% block body_class %}{% endblock %}">
+	<a class="skip-link" href="#main-content">Saltar al contenido</a>
+	<div class="site-shell">
+
+        {% include '_navbar.html' %}
+		<main id="main-content" class="main-content">
+			{% block page_header %}{% endblock %}
+			{% block content %}{% endblock %}
+		</main>
+
+		<footer class="site-footer">
+			<span class="footer-mark">TCI</span>
+			<span>THE CHALLENGE ISLAND</span>
+			<span class="footer-note">Competir. Resistir. Avanzar.</span>
+		</footer>
+	</div>
+	{% block extra_js %}{% endblock %}
+</body>
+</html>

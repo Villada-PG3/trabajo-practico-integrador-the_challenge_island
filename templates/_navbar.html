@@ -1,0 +1,35 @@
+<header class="site-header">
+    <div class="container">
+        <a class="brand" href="{% url 'home' %}" aria-label="The Challenge Island, inicio">
+
+            <span class="brand-copy">
+                <span class="brand-kicker">
+                    Reality de competencia
+                </span>
+
+                <span class="brand-name">
+                    THE CHALLENGE <strong>ISLAND</strong>
+                </span>
+            </span>
+
+        </a>
+        <nav id="primary-nav"
+             class="primary-nav"
+             aria-label="Navegación principal">
+
+            <a class="nav-link nav-link-active"
+               href="{% url 'home' %}"
+               aria-current="page">
+                Inicio
+            </a>
+            <a class="nav-link"
+               href="#">
+                Equipos
+            </a>
+            <a class="nav-link"
+               href="#">
+                Desafíos
+            </a>
+        </nav>
+    </div>
+</header>
