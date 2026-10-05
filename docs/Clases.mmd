@@ -1,78 +1,153 @@
 classDiagram
 
 class Temporada {
+
     +int numero
+
     +String nombre
+
     +int cantidadEquipos
 
+
+
     +agregarEquipo()
+
     +agregarParticipante()
+
     +asignarParticipante()
+
     +crearDesafio()
+
     +crearEliminatoria()
+
     +crearAlianza()
+
     +ganador()
+
 }
+
+
 
 class Equipo {
+
     +String nombre
+
     +String escudo
+
     +int puntos
+
     +boolean eliminado
 
+
+
     +agregarParticipante()
+
     +sumarPuntos()
+
     +eliminar()
+
 }
 
+
+
 class Participante {
+
     +String nombre
+
     +String apellido
+
     +String habilidad
+
     +String pais
+
     +String apodo
+
 }
+
+
+
 
 
 class Desafio {
+
     +String nombre
+
     +String reglas
+
     +String tipo
+
     +int recompensa
 
+
+
     +iniciar()
+
     +finalizar()
+
     +asignarPuntos()
+
 }
+
+
 
 class Eliminatoria {
+
     +String tipo
+
     +String reglas
 
+
+
     +agregarEquipo()
+
     +iniciar()
+
     +finalizar()
-    +eliminarEquipo()
+
+    +borrarEquipo()
+
 }
+
+
 
 class Alianza {
+
     +String nombre
+
     +String objetivo
+
     +boolean estado
 
+
+
     +agregarEquipo()
+
     +quitarEquipo()
+
     +finalizarAlianza()
+
 }
 
+
+
 Temporada "1" --> "*" Equipo : tiene
+
 Equipo "1" --> "*" Participante : tiene
 
+
+
 Temporada "1" --> "*" Desafio : se realizan
+
 Desafio "1" --> "*" Equipo : compiten
 
+
+
 Temporada "1" --> "*" Eliminatoria : tiene
+
 Eliminatoria "1" --> "*" Equipo : enfrentan
 
+
+
 Temporada "1" --> "*" Alianza : forma
-Alianza "1" --> "*" Equipo : une
+
+Alianza "2..*" --> "0..*" Equipo : une
