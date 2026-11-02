@@ -1,41 +1,160 @@
 erDiagram
-    TEMPORADA ||--|{ EQUIPOS : contiene
-    TEMPORADA {
-        int idTemporada
-        string nombreTemporada
-        int cantidadEquipos
-        EQUIPO equipoGanador
+    PAISES ||--o{ ISLAS : contiene
+    ISLAS ||--o{ TEMPORADAS : alberga
+    TEMPORADAS ||--o{ EQUIPOS : incluye
 
+    EQUIPOS ||--o{ PARTICIPANTES : integra
+    PAISES ||--o{ PARTICIPANTES : origen
+
+    PARTICIPANTES ||--o{ DETALLES_AMBITOS_VIDA : posee
+    AMBITOS_VIDA ||--o{ DETALLES_AMBITOS_VIDA : clasifica
+
+    PARTICIPANTES ||--o{ DETALLES_HABILIDADES_ESPECIALES : posee
+    HABILIDADES_ESPECIALES ||--o{ DETALLES_HABILIDADES_ESPECIALES : describe
+
+    EQUIPOS ||--o{ DETALLES_ALIANZAS : participa
+    ALIANZAS ||--o{ DETALLES_ALIANZAS : agrupa
+
+    PARTICIPANTES ||--o{ CONJUNTOS_STATS : registra
+    CONJUNTOS_STATS ||--o{ DETALLES_CONJUNTOS : contiene
+    STATS ||--o{ DETALLES_CONJUNTOS : integra
+
+    EQUIPOS ||--o{ ELIMINACIONES : participa
+    TIPOS_ELIMINACIONES ||--o{ ELIMINACIONES : clasifica
+
+    ELIMINACIONES ||--o{ GANADORES_ELIMINACIONES : registra
+    PARTICIPANTES ||--o{ GANADORES_ELIMINACIONES : obtiene
+
+    DESAFIO ||--o{ SUPERADORES_DESAFIOS : registra
+    EQUIPOS ||--o{ SUPERADORES_DESAFIOS : supera
+
+    TEMPORADAS {
+        INT ID_TEMPORADA PK
+        STR NOMBRE
+        INT ID_ISLA FK
+        DATE FECHA_INICIO
+        DATE FECHA_FIN
     }
+
+    ISLAS {
+        INT ID_ISLA PK
+        STR NOMBRE
+        INT ID_PAIS FK
+    }
+
+    PAISES {
+        INT ID_PAIS PK
+        STR NOMBRE
+        STR DESCRIPCION
+        STR IMAGEN
+    }
+
+    EQUIPOS {
+        INT ID_EQUIPO PK
+        INT ID_TEMPORADA FK
+        BOOL ACTIVO
+        STR NOMBRE
+        STR IMAGEN
+        INT PUNTAJE
+        BOOL ES_GANADOR
+    }
+
+    PARTICIPANTES {
+        INT ID_PARTICIPANTE PK
+        STR NOMBRE
+        STR APELLIDO
+        STR APODO
+        INT EDAD
+        INT ID_PAIS FK
+        INT ID_EQUIPO FK
+        STR IMAGEN
+    }
+
+    ALIANZAS {
+        INT ID_ALIANZA PK
+        STR NOMBRE
+    }
+
+    DETALLES_ALIANZAS {
+        INT ID_DETALLE_ALIANZA PK
+        INT ID_EQUIPO FK
+        INT ID_ALIANZA FK
+        DATE FECHA_INICIO
+        DATE FECHA_FIN
+        BOOL ESTADO
+    }
+
+    AMBITOS_VIDA {
+        INT ID_AMBITO_VIDA PK
+        STR DESCRIPCION
+    }
+
+    DETALLES_AMBITOS_VIDA {
+        INT ID_DETALLE_AMBITO_VIDA PK
+        INT ID_PARTICIPANTE FK
+        INT ID_AMBITO_VIDA FK
+    }
+
+    HABILIDADES_ESPECIALES {
+        INT ID_HABILIDAD_ESPECIAL PK
+        STR DESCRIPCION
+    }
+
+    DETALLES_HABILIDADES_ESPECIALES {
+        INT ID_DETALLE_HABILIDAD_ESPECIAL PK
+        INT ID_PARTICIPANTE FK
+        INT ID_HABILIDAD_ESPECIAL FK
+    }
+
+    CONJUNTOS_STATS {
+        INT ID_CONJUNTO_STAT PK
+        DATE FECHA_CREACION
+        INT ID_PARTICIPANTE FK
+    }
+
+    DETALLES_CONJUNTOS {
+        INT ID_DETALLE_CONJUNTO PK
+        INT ID_STAT FK
+        INT ID_CONJUNTO_STAT FK
+    }
+
+    STATS {
+        INT ID_STAT PK
+        STR NOMBRE
+        STR DESCRIPCION
+        INT CANTIDAD
+    }
+
+    ELIMINACIONES {
+        INT ID_ELIMINACION PK
+        INT ID_EQUIPO_ELIMINADOR FK
+        INT ID_EQUIPO_ELIMINADO FK
+        INT ID_TIPO FK
+        STR DESCRIPCION
+    }
+
+    TIPOS_ELIMINACIONES {
+        INT ID_TIPO PK
+        STR NOMBRE
+        STR DESCRIPCION
+    }
+
+    GANADORES_ELIMINACIONES {
+        INT ID_GANADOR_ELIMINACION PK
+        INT ID_ELIMINACION FK
+        INT ID_PARTICIPANTE FK
+    }
+
     DESAFIO {
-        int idDesafio
-        string nombreDesafio
-        string tipoDesafio
-    
+        INT ID_DESAFIO PK
+        STR NOMBRE
+        STR DESCRIPCION
+        INT PUNTOS
+        STR RECOMPENSA
     }
-    EQUIPO {
-        int idEquipo
-        string nombreEquipo
-        PARTICIPANTE participante
-    
-    }
-    PARTICIPANTE {
-        int idParticipante
-        string nombreParticipante
-        string paisParticipante
-        string vocacion
-        string habilidadEspecial
-    }
-    ALIANZA {
-        int idAlianza
-        EQUIPO equipo1
-        EQUIPO equipo2
-        date duracionAlianza
 
-    }
-    ISLA {
-        int idIsla
-        string nombreIsla
-        string paisIsla
-        
+    SUPERADORES_DESAFIOS {
+        INT ID_SUPERADOR PK
+        INT ID_DESAFIO FK
+        INT ID_EQUIPO FK
     }
