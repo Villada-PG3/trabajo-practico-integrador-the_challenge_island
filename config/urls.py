@@ -19,12 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from challengeIslandApp.views import home
+from challengeIslandApp.views import TemporadasView, home
 
 urlpatterns = [
     path("", home.as_view(), name="home"),
     path("admin/", admin.site.urls),
     path("home/", home.as_view(), name="home_alias"),
+    path("temporadas/", TemporadasView.as_view(), name="temporadas"),
 ]
 
 # Sirve las imágenes subidas (carpeta media/) mientras DEBUG = True

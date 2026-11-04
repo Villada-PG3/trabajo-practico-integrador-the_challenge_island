@@ -12,7 +12,7 @@ class Pais(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     imagen = models.ImageField(
-        upload_to='paises/',
+        upload_to='media/paises/',
         blank=True,
         null=True
     )
@@ -41,6 +41,11 @@ class Isla(models.Model):
 class Temporada(models.Model):
     id_temporada = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
+    imagen = models.ImageField(
+        upload_to='media/temporadas/',
+        blank=True,
+        null=True
+    )
     isla = models.ForeignKey(
         Isla,
         on_delete=models.PROTECT,

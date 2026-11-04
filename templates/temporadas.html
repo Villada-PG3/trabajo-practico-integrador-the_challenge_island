@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Temporadas - The Challenge Island{% endblock %}
+
+{% block content %}
+<section class="seasons-page" aria-labelledby="seasons-title">
+    <header class="seasons-heading">
+        <div>
+            <p class="seasons-kicker">The Challenge Island</p>
+            <h1 class="seasons-title" id="seasons-title">Temporadas</h1>
+        </div>
+        <span class="seasons-count">{{ temporadas|length }} en total</span>
+    </header>
+
+    {% if temporadas %}
+    <div class="season-list">
+        {% for temporada in temporadas %}
+        <article class="season-card">
+            <span class="season-card-number" aria-hidden="true">{{ temporada.id_temporada|stringformat:"02d" }}</span>
+            <div class="season-card-copy">
+                <p class="season-card-label">Temporada {{ temporada.id_temporada }}</p>
+                <h2 class="season-card-name">{{ temporada.nombre }}</h2>
+                <p class="season-card-location">{{ temporada.isla.nombre }}</p>
+            </div>
+            <p class="season-card-meta">
+                {{ temporada.fecha_inicio|date:"Y" }}<br>
+                {{ temporada.fecha_inicio|date:"d/m/Y" }} — {{ temporada.fecha_fin|date:"d/m/Y" }}
+            </p>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="seasons-empty">Todavía no hay temporadas cargadas.</p>
+    {% endif %}
+</section>
+{% endblock %}
