@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ temporada.nombre }} - The Challenge Island{% endblock %}
+
+{% block content %}
+<article class="season-detail">
+    <a class="season-detail-back" href="{% url 'temporadas' %}">&larr; Todas las temporadas</a>
+    <div class="season-detail-content">
+        {% if temporada.imagen %}
+        <img class="season-detail-image" src="{{ temporada.imagen.url }}" alt="Imagen de {{ temporada.nombre }}">
+        {% else %}
+        <div class="season-detail-image season-detail-image-fallback" aria-hidden="true">
+            {{ temporada.id_temporada|stringformat:"02d" }}
+        </div>
+        {% endif %}
+        <div class="season-detail-copy">
+            <p class="current-season-kicker">Temporada {{ temporada.id_temporada }}</p>
+            <h1 class="season-detail-title">{{ temporada.nombre }}</h1>
+            <p class="season-detail-location">{{ temporada.isla.nombre }} · {{ temporada.isla.pais.nombre }}</p>
+            <dl class="season-detail-dates">
+                <div>
+                    <dt>Inicio</dt>
+                    <dd>{{ temporada.fecha_inicio|date:"d/m/Y" }}</dd>
+                </div>
+                <div>
+                    <dt>Finalización</dt>
+                    <dd>{{ temporada.fecha_fin|date:"d/m/Y" }}</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</article>
+{% endblock %}
