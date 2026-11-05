@@ -15,28 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 """config/urls.py"""
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from challengeIslandApp.views import (
-    DetalleTemporadaView,
-    TemporadasView,
-    home,
-)
 
 urlpatterns = [
-    path("", home.as_view(), name="home"),
     path("admin/", admin.site.urls),
-    path("home/", home.as_view(), name="home_alias"),
-    path("temporadas/", TemporadasView.as_view(), name="temporadas"),
-    path(
-        'temporada/<int:pk>/',
-        DetalleTemporadaView.as_view(),
-        name='detalle_temporada',
-    ),
+    path("", include("challengeIslandApp.urls")),
 ]
 
-# Sirve las imágenes subidas (carpeta media/) mientras DEBUG = True
+# Sirve las imágenes subidas mientras DEBUG = True
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )
