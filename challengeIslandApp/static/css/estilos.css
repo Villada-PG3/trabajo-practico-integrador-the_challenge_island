@@ -452,3 +452,256 @@ a {
     }
 }
 
+/* =========================================
+   LISTADO DE TEMPORADAS
+========================================= */
+
+.seasons-page {
+    display: grid;
+    gap: 32px;
+}
+
+.seasons-heading,
+.teams-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.seasons-kicker {
+    margin: 0 0 8px;
+    color: var(--coral);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.seasons-title,
+.teams-title {
+    margin: 0;
+    color: var(--forest);
+    font-family: var(--font-display);
+    font-size: clamp(38px, 6vw, 64px);
+    line-height: 1;
+}
+
+.seasons-count {
+    color: var(--ink-soft);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.season-list {
+    display: grid;
+    gap: 14px;
+}
+
+.season-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    background: var(--white);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.season-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--coral);
+}
+
+.season-card-number {
+    display: grid;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    place-items: center;
+    background: var(--forest);
+    color: var(--leaf);
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 800;
+}
+
+.season-card-copy {
+    flex: 1;
+}
+
+.season-card-label {
+    margin: 0 0 5px;
+    color: var(--coral);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.season-card-name {
+    margin: 0;
+    color: var(--forest);
+    font-family: var(--font-display);
+    font-size: 30px;
+}
+
+.season-card-location {
+    margin: 5px 0 0;
+    color: var(--ink-soft);
+    font-size: 13px;
+}
+
+.season-card-meta {
+    color: var(--ink-soft);
+    font-size: 12px;
+    line-height: 1.8;
+    text-align: right;
+}
+
+.season-card-arrow {
+    color: var(--coral);
+    font-size: 28px;
+}
+
+.seasons-empty {
+    padding: 24px;
+    border: 1px solid var(--line);
+    background: var(--white);
+}
+
+
+/* =========================================
+   EQUIPOS DE UNA TEMPORADA
+========================================= */
+
+.teams-section {
+    display: grid;
+    gap: 24px;
+    margin-top: 64px;
+}
+
+.teams-title {
+    font-size: clamp(32px, 5vw, 48px);
+}
+
+.teams-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.team-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--white);
+    transition: transform 160ms ease;
+}
+
+.team-card:hover {
+    transform: translateY(-3px);
+}
+
+.team-card-image {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    background: var(--forest);
+}
+
+.team-card-image-fallback {
+    display: grid;
+    place-items: center;
+    color: var(--leaf);
+    font-family: var(--font-display);
+    font-size: 76px;
+    font-weight: 800;
+}
+
+.team-card-copy {
+    display: grid;
+    justify-items: start;
+    gap: 8px;
+    padding: 22px;
+}
+
+.team-card-label {
+    margin: 0;
+    color: var(--coral);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.team-card-name {
+    margin: 0;
+    color: var(--forest);
+    font-family: var(--font-display);
+    font-size: 30px;
+}
+
+.team-card-points {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.team-card-winner {
+    padding: 6px 10px;
+    background: var(--leaf);
+    color: var(--forest-deep);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.teams-empty {
+    padding: 24px;
+    border: 1px solid var(--line);
+    background: var(--white);
+}
+
+
+/* =========================================
+   DISEÑO RESPONSIVE
+========================================= */
+
+@media (max-width: 640px) {
+    .seasons-heading,
+    .teams-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .season-card {
+        flex-wrap: wrap;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .season-card-number {
+        width: 56px;
+        height: 56px;
+        font-size: 26px;
+    }
+
+    .season-card-meta {
+        width: 100%;
+        text-align: left;
+    }
+
+    .season-card-arrow {
+        margin-left: auto;
+    }
+
+    .teams-section {
+        margin-top: 44px;
+    }
+}
+
+

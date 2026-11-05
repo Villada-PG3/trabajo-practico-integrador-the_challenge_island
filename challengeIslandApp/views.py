@@ -24,10 +24,16 @@ class TemporadasView(TemplateView):
         return context
 
 
+
 class DetalleTemporadaView(DetailView):
     model = Temporada
     template_name = 'detalle_temporada.html'
     context_object_name = 'temporada'
 
     def get_queryset(self):
-        return super().get_queryset().select_related('isla', 'isla__pais')
+        return (
+            super()
+            .get_queryset()
+            .select_related('isla', 'isla__pais')
+            .prefetch_related('equipos')
+        )
