@@ -85,6 +85,8 @@ class Equipo(models.Model):
         null=True
     )
     puntaje = models.PositiveIntegerField(default=0)
+    listado_recompensas= models.JSONField(blank=True, default=list)
+
     es_ganador = models.BooleanField(default=False)
 
     def __str__(self):
@@ -128,6 +130,7 @@ class Participante(models.Model):
 class Alianza(models.Model):
     id_alianza = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
+    color = models.CharField(max_length=7, default='#FFFFFF')
 
     def __str__(self):
         return self.nombre
@@ -306,11 +309,11 @@ class DetalleConjunto(models.Model):
 
 class TipoEliminacion(models.Model):
     id_tipo = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100)
+    numero = models.PositiveIntegerField(default=0)
     descripcion = models.TextField()
 
     def __str__(self):
-        return self.nombre
+        return str(self.numero)
 
 
 class Eliminacion(models.Model):
@@ -336,10 +339,6 @@ class Eliminacion(models.Model):
 # =====================================================
 
 class Desafio(models.Model):
-    class TipoDesafio(models.TextChoices):
-        FISICA = 'fisica', 'Física'
-        MENTAL = 'mental', 'Mental'
-        ESTRATEGICA = 'estrategica', 'Estratégica'
 
     id_desafio = models.AutoField(primary_key=True)
     temporada = models.ForeignKey(
@@ -349,11 +348,6 @@ class Desafio(models.Model):
     )
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
-    tipo = models.CharField(
-        max_length=12,
-        choices=TipoDesafio.choices,
-        default=TipoDesafio.ESTRATEGICA,
-    )
     puntos = models.PositiveIntegerField(default=0, null=True, blank=True)
     recompensa = models.CharField(max_length=200, null=True, blank=True)
     
@@ -379,6 +373,7 @@ class SuperadorDesafio(models.Model):
         on_delete=models.PROTECT,
         related_name='desafios_superados'
     )
+    puntos = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     class Meta:
         constraints = [

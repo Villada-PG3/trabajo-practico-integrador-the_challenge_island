@@ -20,4 +20,9 @@ urlpatterns = [
             views.DetalleParticipanteView.as_view(),
             name='detalle_participante'
         ),
+    path(
+            'equipo/<int:pk>/',
+            views.DetalleEquipoView.as_view(),
+            name='detalle_equipo'
+        ),
 ]

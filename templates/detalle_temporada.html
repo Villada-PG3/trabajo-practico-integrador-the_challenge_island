@@ -57,7 +57,102 @@
 </article>
 
 
-<!-- EQUIPOS DE LA TEMPORADA -->
+<section class="pyramid-section" aria-labelledby="pyramid-title">
+    <div class="pyramid-heading">
+        <span class="section-label">El camino hacia la victoria</span>
+        <h2 id="pyramid-title">Pirámide de eliminaciones</h2>
+        <p>
+            Seguí el recorrido de los equipos a través de las eliminaciones
+            de esta temporada.
+        </p>
+    </div>
+
+    <div class="pyramid">
+
+        <div class="pyramid-level pyramid-base">
+            <span class="pyramid-level-label">Todos los equipos</span>
+
+            <div class="pyramid-teams">
+                {% for item in equipos_piramide %}
+                    <a
+                        class="pyramid-team"
+                        href="{% url 'detalle_equipo' item.equipo.pk %}"
+                        style="--alliance-color: {{ item.color_alianza|default:'#b8b8b8' }};"
+                    >
+                        {{ item.equipo.nombre }}
+                    </a>
+                {% empty %}
+                    <p class="pyramid-empty">
+                        Todavía no hay equipos registrados.
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% for nivel in niveles_piramide %}
+            <div class="pyramid-elimination">
+                <span class="pyramid-elimination-label">
+                    Eliminación {{ nivel.numero }}
+                </span>
+
+                {% if nivel.eliminado %}
+                    <div class="elimination-bar">
+                        <span>Eliminado:</span>
+                        <strong>{{ nivel.eliminado.nombre }}</strong>
+                    </div>
+                {% else %}
+                    <div class="elimination-bar elimination-unknown">
+                        <span>Eliminación pendiente</span>
+                        <span class="unknown-symbol">?</span>
+                    </div>
+                {% endif %}
+            </div>
+        {% if not forloop.last %}
+            <div class="pyramid-level">
+                <div class="pyramid-teams">
+                    {% for item in nivel.equipos %}
+                        <a
+                            class="pyramid-team"
+                            href="{% url 'detalle_equipo' item.equipo.pk %}"
+                            style="--alliance-color: {{ item.color_alianza|default:'#b8b8b8' }};"
+                        >
+                            {{ item.equipo.nombre }}
+                        </a>
+                    {% endfor %}
+
+                    {% for lugar in nivel.lugares_desconocidos %}
+                        <div class="pyramid-team pyramid-team-unknown">
+                            Equipo desconocido
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+
+        <div class="pyramid-champion">
+            <span class="pyramid-level-label">La cima</span>
+
+            {% if campeon %}
+                <a
+                    class="champion-card"
+                    href="{% url 'detalle_equipo' campeon.pk %}"
+                >
+                    <span class="champion-crown">♛</span>
+                    <strong>{{ campeon.nombre }}</strong>
+                    <span>Campeón de la temporada</span>
+                </a>
+            {% else %}
+                <div class="champion-card champion-unknown">
+                    <span class="champion-crown">♛</span>
+                    <strong>Por definir</strong>
+                    <span>El campeón todavía no está registrado</span>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
 
 <section class="teams-section" aria-labelledby="teams-title">
 
@@ -80,7 +175,10 @@
 
         {% for equipo in temporada.equipos.all %}
 
-        <article class="team-card">
+        <a
+            class="team-card"
+            href="{% url 'detalle_equipo' equipo.pk %}"
+            >
 
             {% if equipo.imagen %}
             <img class="team-card-image"
@@ -115,7 +213,7 @@
 
             </div>
 
-        </article>
+        </a>
 
         {% endfor %}
 

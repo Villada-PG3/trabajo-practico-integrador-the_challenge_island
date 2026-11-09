@@ -1,0 +1,186 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ equipo.nombre }} - The Challenge Island
+{% endblock %}
+
+{% block content %}
+
+<section class="team-detail">
+
+    <a class="participant-back"
+       href="{% url 'detalle_temporada' equipo.temporada.pk %}">
+        &larr; Volver a la temporada
+    </a>
+
+    <!-- ENCABEZADO DEL EQUIPO -->
+    <header class="team-detail-hero">
+
+        {% if equipo.imagen %}
+            <img src="{{ equipo.imagen.url }}"
+                 alt="Imagen de {{ equipo.nombre }}">
+        {% else %}
+            <div class="team-detail-placeholder">
+                <span>{{ equipo.nombre|first }}</span>
+            </div>
+        {% endif %}
+
+        <div class="team-detail-info">
+            <span class="section-label">EQUIPO PARTICIPANTE</span>
+
+            <h1>{{ equipo.nombre }}</h1>
+
+            <p>{{ equipo.temporada.nombre }}</p>
+
+            {% if equipo.es_ganador %}
+                <span class="team-card-winner">Equipo ganador</span>
+            {% endif %}
+
+            {% if equipo.activo %}
+                <span class="team-status">Equipo activo</span>
+            {% else %}
+                <span class="team-status team-status-inactive">
+                    Equipo inactivo
+                </span>
+            {% endif %}
+        </div>
+
+    </header>
+
+
+    <!-- ESTADÍSTICAS DEL EQUIPO -->
+    <section class="team-summary">
+
+        <article class="team-summary-card">
+            <span class="team-summary-icon">🏆</span>
+            <h2>{{ equipo.puntaje }}</h2>
+            <p>Puntos acumulados</p>
+        </article>
+
+        <article class="team-summary-card">
+            <span class="team-summary-icon">🎁</span>
+            <h2>{{ equipo.listado_recompensas|length }}</h2>
+            <p>Recompensas obtenidas</p>
+        </article>
+
+        <article class="team-summary-card">
+            <span class="team-summary-icon">👥</span>
+            <h2>{{ equipo.participantes.all|length }}</h2>
+            <p>Integrantes</p>
+        </article>
+
+    </section>
+
+
+    <!-- INTEGRANTES -->
+    <section class="participant-section">
+
+        <header class="participant-section-heading">
+            <span class="section-label">LOS COMPETIDORES</span>
+            <h2>Integrantes del equipo</h2>
+            <p>Conocé a quienes forman parte de {{ equipo.nombre }}.</p>
+        </header>
+
+        <div class="participants-list">
+
+            {% for participante in equipo.participantes.all %}
+
+                <a class="participant-card"
+                   href="{% url 'detalle_participante' participante.pk %}">
+
+                    <div class="participant-card-image">
+
+                        {% if participante.imagen %}
+                            <img src="{{ participante.imagen.url }}"
+                                 alt="{{ participante.nombre }}">
+                        {% else %}
+                            <div class="participant-placeholder">
+                                <span>{{ participante.nombre|first }}</span>
+                            </div>
+                        {% endif %}
+
+                        <span class="participant-country">
+                            {{ participante.pais.nombre }}
+                        </span>
+
+                    </div>
+
+                    <div class="participant-card-info">
+
+                        <span class="participant-card-team">
+                            {{ equipo.nombre }}
+                        </span>
+
+                        <h2>{{ participante.apodo }}</h2>
+
+                        <p>
+                            {{ participante.nombre }}
+                            {{ participante.apellido }}
+                        </p>
+
+                        <div class="participant-card-footer">
+                            <span>{{ participante.edad }} años</span>
+                            <span class="participant-card-arrow">↗</span>
+                        </div>
+
+                    </div>
+
+                </a>
+
+            {% empty %}
+
+                <div class="participants-empty">
+                    <h2>Este equipo todavía no tiene integrantes</h2>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- RECOMPENSAS -->
+    <section class="participant-section">
+
+        <header class="participant-section-heading">
+            <span class="section-label">PREMIOS Y LOGROS</span>
+            <h2>Recompensas obtenidas</h2>
+            <p>Todos los beneficios conseguidos por el equipo durante la temporada.</p>
+        </header>
+
+        <div class="team-rewards-list">
+
+            {% for recompensa in equipo.listado_recompensas %}
+
+                <article class="team-reward-card">
+
+                    <span class="team-reward-icon">🎁</span>
+
+                    <div>
+                        <h3>Recompensa {{ forloop.counter }}</h3>
+                        <p>{{ recompensa }}</p>
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <div class="participants-empty">
+                    <h2>Todavía no hay recompensas</h2>
+                    <p>
+                        Cuando el equipo consiga alguna recompensa,
+                        aparecerá en esta sección.
+                    </p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</section>
+
+{% endblock %}
