@@ -17,24 +17,24 @@
              class="primary-nav"
              aria-label="Navegación principal">
 
-            <a class="nav-link nav-link-active"
+            <a class="nav-link{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_alias' %} nav-link-active{% endif %}"
                href="{% url 'home' %}"
-               aria-current="page">
+               {% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'home_alias' %}aria-current="page"{% endif %}>
                 Inicio
             </a>
-            <a class="nav-link"
+            <a class="nav-link{% if request.resolver_match.url_name == 'temporadas' or request.resolver_match.url_name == 'detalle_temporada' %} nav-link-active{% endif %}"
                href="{% url 'temporadas' %}"
-               aria-current="page">
+               {% if request.resolver_match.url_name == 'temporadas' or request.resolver_match.url_name == 'detalle_temporada' %}aria-current="page"{% endif %}>
                 Temporadas
             </a>
-            <a class="nav-link"
+            <a class="nav-link{% if request.resolver_match.url_name == 'participantes' or request.resolver_match.url_name == 'detalle_participante' %} nav-link-active{% endif %}"
                 href="{% url 'participantes' %}"
-                aria-current="page">
+                {% if request.resolver_match.url_name == 'participantes' or request.resolver_match.url_name == 'detalle_participante' %}aria-current="page"{% endif %}>
                 Participantes
             </a>
-                <a class="nav-link{% if request.resolver_match.url_name == 'desafios' %} nav-link-active{% endif %}"
-                    href="{% url 'desafios' %}"
-                    {% if request.resolver_match.url_name == 'desafios' %}aria-current="page"{% endif %}>
+            <a class="nav-link{% if request.resolver_match.url_name == 'desafios' %} nav-link-active{% endif %}"
+               href="{% url 'desafios' %}"
+               {% if request.resolver_match.url_name == 'desafios' %}aria-current="page"{% endif %}>
                 Desafíos
             </a>
         </nav>
