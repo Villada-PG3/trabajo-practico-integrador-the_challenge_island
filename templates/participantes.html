@@ -13,6 +13,20 @@
         </p>
     </header>
 
+    <form class="challenge-filter" method="get" action="{% url 'participantes' %}">
+        <label for="participantes-temporada-id">Temporada</label>
+        <select id="participantes-temporada-id" name="temporada_id">
+            <option value="">Todas las temporadas</option>
+            {% for temporada in temporadas %}
+            <option value="{{ temporada.id_temporada }}"
+                    {% if temporada_seleccionada.id_temporada == temporada.id_temporada %}selected{% endif %}>
+                {{ temporada.nombre }}
+            </option>
+            {% endfor %}
+        </select>
+        <button class="challenge-filter-button" type="submit">Filtrar</button>
+    </form>
+
     <div class="participants-count">
         {{ participantes|length }} participantes registrados
     </div>
@@ -70,8 +84,13 @@
         {% empty %}
 
             <div class="participants-empty">
-                <h2>No hay participantes todavía</h2>
-                <p>Cuando se registren participantes, aparecerán aquí.</p>
+                {% if temporada_seleccionada %}
+                    <h2>No hay participantes en esta temporada</h2>
+                    <p>No se registraron participantes para {{ temporada_seleccionada.nombre }}.</p>
+                {% else %}
+                    <h2>No hay participantes todavía</h2>
+                    <p>Cuando se registren participantes, aparecerán aquí.</p>
+                {% endif %}
             </div>
 
         {% endfor %}

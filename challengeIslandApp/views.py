@@ -159,11 +159,32 @@ class ParticipantesView(ListView):
     context_object_name = 'participantes'
 
     def get_queryset(self):
-        return (
+        queryset = (
             Participante.objects
             .select_related('pais', 'equipo', 'equipo__temporada')
             .order_by('apellido', 'nombre')
         )
+        temporada_id = self.request.GET.get('temporada_id', '').strip()
+        self.temporada_seleccionada = None
+
+        if temporada_id.isdigit():
+            self.temporada_seleccionada = Temporada.objects.filter(
+                pk=temporada_id
+            ).first()
+            if self.temporada_seleccionada:
+                queryset = queryset.filter(
+                    equipo__temporada=self.temporada_seleccionada
+                )
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['temporadas'] = Temporada.objects.order_by(
+            '-fecha_inicio', '-id_temporada'
+        )
+        context['temporada_seleccionada'] = self.temporada_seleccionada
+        return context
 
 
 class DetalleParticipanteView(DetailView):
