@@ -2,6 +2,7 @@ db.sqlite3
 /challengeIslandApp/__pycache__
 *.pyc
 .venv
+venv/
 /media/
 /equipos/
 /participantes/

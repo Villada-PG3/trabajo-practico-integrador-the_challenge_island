@@ -1,5 +1,9 @@
 from django.contrib import admin
 
+admin.site.site_header = "THE CHALLENGE ISLAND"
+admin.site.site_title = "The Challenge Island | Administración"
+admin.site.index_title = "Panel de administración"
+
 from .models import (
     Alianza,
     AmbitoVida,
@@ -39,4 +43,3 @@ admin.site.register(DetalleHabilidadEspecial)
 admin.site.register(DetalleAmbitoVida)
 admin.site.register(DetalleConjunto)
 admin.site.register(SuperadorDesafio)
-
