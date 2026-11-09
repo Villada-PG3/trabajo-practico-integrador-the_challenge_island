@@ -3,5 +3,5 @@ db.sqlite3
 *.pyc
 .venv
 /media/
-/equipos
-/participantes
+/equipos/
+/participantes/
