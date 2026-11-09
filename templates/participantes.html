@@ -2,95 +2,101 @@
 
 {% block content %}
 
-<section class="participants-page">
+<section>
 
-    <header class="participants-heading">
-        <span class="section-label">THE CHALLENGE ISLAND</span>
-        <h1>Los participantes</h1>
-        <p>
+    <header class="mb-4">
+        <span class="section-label text-success">THE CHALLENGE ISLAND</span>
+        <h1 class="display-5 font-display text-forest">Los participantes</h1>
+        <p class="text-secondary mb-0">
             Conocé a los competidores que forman parte
             de esta aventura.
         </p>
     </header>
 
-    <form class="challenge-filter" method="get" action="{% url 'participantes' %}">
-        <label for="participantes-temporada-id">Temporada</label>
-        <select id="participantes-temporada-id" name="temporada_id">
-            <option value="">Todas las temporadas</option>
-            {% for temporada in temporadas %}
-            <option value="{{ temporada.id_temporada }}"
-                    {% if temporada_seleccionada.id_temporada == temporada.id_temporada %}selected{% endif %}>
-                {{ temporada.nombre }}
-            </option>
-            {% endfor %}
-        </select>
-        <button class="challenge-filter-button" type="submit">Filtrar</button>
+    <form class="mb-4" method="get" action="{% url 'participantes' %}">
+        <label class="form-label fw-semibold" for="participantes-temporada-id">Filtrar por temporada</label>
+        <div class="input-group">
+            <span class="input-group-text" aria-hidden="true">Temporada</span>
+            <select class="form-select" id="participantes-temporada-id" name="temporada_id">
+                <option value="">Todas las temporadas</option>
+                {% for temporada in temporadas %}
+                <option value="{{ temporada.id_temporada }}"
+                        {% if temporada_seleccionada.id_temporada == temporada.id_temporada %}selected{% endif %}>
+                    {{ temporada.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" type="submit">Filtrar</button>
+        </div>
     </form>
 
-    <div class="participants-count">
-        {{ participantes|length }} participantes registrados
-    </div>
+    <p class="small text-secondary mb-3">{{ participantes|length }} participantes registrados</p>
 
-    <div class="participants-list">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
 
         {% for participante in participantes %}
 
+            <div class="col">
             <a
-                class="participant-card"
+                class="card participant-card h-100 text-decoration-none shadow-sm"
                 href="{% url 'detalle_participante' participante.pk %}"
             >
 
-                <div class="participant-card-image">
+                <div class="participant-card-media position-relative">
 
                     {% if participante.imagen %}
                         <img
+                            class="card-img-top participant-card-image"
                             src="{{ participante.imagen.url }}"
                             alt="{{ participante.nombre }}"
                         >
                     {% else %}
-                        <div class="participant-placeholder">
+                        <div class="participant-placeholder d-flex align-items-center justify-content-center h-100">
                             <span>{{ participante.nombre|first }}</span>
                         </div>
                     {% endif %}
 
-                    <span class="participant-country">
+                    <span class="badge text-bg-dark position-absolute bottom-0 start-0 m-3">
                         {{ participante.pais.nombre }}
                     </span>
 
                 </div>
 
-                <div class="participant-card-info">
+                <div class="card-body d-flex flex-column">
 
-                    <span class="participant-card-team">
+                    <span class="badge text-bg-success align-self-start mb-2">
                         {{ participante.equipo.nombre }}
                     </span>
 
-                    <h2>{{ participante.apodo }}</h2>
+                    <h2 class="h4 font-display text-forest">{{ participante.apodo }}</h2>
 
-                    <p>
+                    <p class="text-secondary">
                         {{ participante.nombre }}
                         {{ participante.apellido }}
                     </p>
 
-                    <div class="participant-card-footer">
-                        <span>{{ participante.edad }} años</span>
-                        <span class="participant-card-arrow">↗</span>
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+                        <span class="small text-secondary">{{ participante.edad }} años</span>
+                        <span class="participant-card-arrow" aria-hidden="true">↗</span>
                     </div>
 
                 </div>
 
             </a>
+            </div>
 
         {% empty %}
 
-            <div class="participants-empty">
+            <div class="col-12">
+            <div class="alert alert-light border text-center">
                 {% if temporada_seleccionada %}
-                    <h2>No hay participantes en esta temporada</h2>
-                    <p>No se registraron participantes para {{ temporada_seleccionada.nombre }}.</p>
+                    <h2 class="h5">No hay participantes en esta temporada</h2>
+                    <p class="mb-0">No se registraron participantes para {{ temporada_seleccionada.nombre }}.</p>
                 {% else %}
-                    <h2>No hay participantes todavía</h2>
-                    <p>Cuando se registren participantes, aparecerán aquí.</p>
+                    <h2 class="h5">No hay participantes todavía</h2>
+                    <p class="mb-0">Cuando se registren participantes, aparecerán aquí.</p>
                 {% endif %}
+            </div>
             </div>
 
         {% endfor %}

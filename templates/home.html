@@ -3,28 +3,23 @@
 {% block title %}Inicio - The Challenge Island{% endblock %}
 
 {% block content %}
-    <section class="hero">
-    </section>
-
     {% if temporada_actual %}
-    <section class="current-season-section" aria-labelledby="current-season-title">
-        <a class="current-season-card" href="{% url 'detalle_temporada' temporada_actual.pk %}">
-            {% if temporada_actual.imagen %}
-            <img class="current-season-image" src="{{ temporada_actual.imagen.url }}" alt="">
-            {% else %}
-            <span class="current-season-number" aria-hidden="true">{{ temporada_actual.id_temporada|stringformat:"02d" }}</span>
-            {% endif %}
-            <span class="current-season-copy">
-                <span class="current-season-label">Temporada actual</span>
-                <strong class="current-season-name" id="current-season-title">{{ temporada_actual.nombre }}</strong>
-            </span>
-            <span class="current-season-arrow" aria-hidden="true">&rarr;</span>
-        </a>
+    <section class="season-hero card text-bg-dark overflow-hidden border-0 shadow" aria-labelledby="current-season-title">
+        {% if temporada_actual.imagen %}
+        <img class="season-hero-image" src="{{ temporada_actual.imagen.url }}" alt="">
+        {% else %}
+        <div class="season-hero-fallback" aria-hidden="true">{{ temporada_actual.id_temporada|stringformat:"02d" }}</div>
+        {% endif %}
+        <div class="card-img-overlay season-hero-overlay d-flex flex-column justify-content-end p-4 p-md-5">
+            <p class="section-label text-warning mb-2">Temporada actual</p>
+            <h1 class="display-4 fw-bold font-display mb-3" id="current-season-title">{{ temporada_actual.nombre }}</h1>
+            <a class="btn btn-warning align-self-start" href="{% url 'detalle_temporada' temporada_actual.pk %}">Explorar temporada <span aria-hidden="true">&rarr;</span></a>
+        </div>
     </section>
     {% else %}
-    <section class="current-season-section" aria-labelledby="current-season-title">
-        <p class="current-season-kicker">En juego</p>
-        <p class="current-season-empty" id="current-season-title">Todavía no hay temporadas disponibles.</p>
+    <section class="alert alert-success" aria-labelledby="current-season-title">
+        <h1 class="h4 alert-heading" id="current-season-title">En juego</h1>
+        <p class="mb-0">Todavía no hay temporadas disponibles.</p>
     </section>
     {% endif %}
 {% endblock %}

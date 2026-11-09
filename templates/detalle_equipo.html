@@ -7,132 +7,138 @@
 
 {% block content %}
 
-<section class="team-detail">
+<section>
 
-    <a class="participant-back"
+    <a class="btn btn-outline-success mb-3"
        href="{% url 'detalle_temporada' equipo.temporada.pk %}">
         &larr; Volver a la temporada
     </a>
 
     <!-- ENCABEZADO DEL EQUIPO -->
-    <header class="team-detail-hero">
+    <header class="card team-detail-hero border-0 shadow-sm mb-5">
 
+        <div class="row g-0">
+        <div class="col-12 col-md-5 team-detail-media">
         {% if equipo.imagen %}
-            <img src="{{ equipo.imagen.url }}"
+            <img class="team-detail-image w-100 h-100" src="{{ equipo.imagen.url }}"
                  alt="Imagen de {{ equipo.nombre }}">
         {% else %}
-            <div class="team-detail-placeholder">
+            <div class="team-detail-placeholder d-flex align-items-center justify-content-center h-100">
                 <span>{{ equipo.nombre|first }}</span>
             </div>
         {% endif %}
+        </div>
 
-        <div class="team-detail-info">
-            <span class="section-label">EQUIPO PARTICIPANTE</span>
+        <div class="col-12 col-md-7"><div class="card-body p-4 p-lg-5">
+            <span class="section-label text-success">Equipo participante</span>
 
-            <h1>{{ equipo.nombre }}</h1>
+            <h1 class="display-5 font-display text-forest">{{ equipo.nombre }}</h1>
 
-            <p>{{ equipo.temporada.nombre }}</p>
+            <p class="text-secondary">{{ equipo.temporada.nombre }}</p>
 
             {% if equipo.es_ganador %}
-                <span class="team-card-winner">Equipo ganador</span>
+                <span class="badge text-bg-warning">Equipo ganador</span>
             {% endif %}
 
             {% if equipo.activo %}
-                <span class="team-status">Equipo activo</span>
+                <span class="badge text-bg-success">Equipo activo</span>
             {% else %}
-                <span class="team-status team-status-inactive">
+                <span class="badge text-bg-secondary">
                     Equipo inactivo
                 </span>
             {% endif %}
+        </div>
+        </div>
         </div>
 
     </header>
 
 
     <!-- ESTADÍSTICAS DEL EQUIPO -->
-    <section class="team-summary">
+    <section class="row row-cols-1 row-cols-sm-3 g-3 mb-5">
 
-        <article class="team-summary-card">
-            <span class="team-summary-icon">🏆</span>
-            <h2>{{ equipo.puntaje }}</h2>
-            <p>Puntos acumulados</p>
-        </article>
+        <article class="col"><div class="card team-summary-card h-100 text-center"><div class="card-body">
+            <span class="team-summary-icon" aria-hidden="true">🏆</span>
+            <h2 class="display-6 font-display text-forest">{{ equipo.puntaje }}</h2>
+            <p class="text-secondary mb-0">Puntos acumulados</p>
+        </div></div></article>
 
-        <article class="team-summary-card">
-            <span class="team-summary-icon">🎁</span>
-            <h2>{{ equipo.listado_recompensas|length }}</h2>
-            <p>Recompensas obtenidas</p>
-        </article>
+        <article class="col"><div class="card team-summary-card h-100 text-center"><div class="card-body">
+            <span class="team-summary-icon" aria-hidden="true">🎁</span>
+            <h2 class="display-6 font-display text-forest">{{ equipo.listado_recompensas|length }}</h2>
+            <p class="text-secondary mb-0">Recompensas obtenidas</p>
+        </div></div></article>
 
-        <article class="team-summary-card">
-            <span class="team-summary-icon">👥</span>
-            <h2>{{ equipo.participantes.all|length }}</h2>
-            <p>Integrantes</p>
-        </article>
+        <article class="col"><div class="card team-summary-card h-100 text-center"><div class="card-body">
+            <span class="team-summary-icon" aria-hidden="true">👥</span>
+            <h2 class="display-6 font-display text-forest">{{ equipo.participantes.all|length }}</h2>
+            <p class="text-secondary mb-0">Integrantes</p>
+        </div></div></article>
 
     </section>
 
 
     <!-- INTEGRANTES -->
-    <section class="participant-section">
+    <section class="mb-5">
 
         <header class="participant-section-heading">
-            <span class="section-label">LOS COMPETIDORES</span>
-            <h2>Integrantes del equipo</h2>
-            <p>Conocé a quienes forman parte de {{ equipo.nombre }}.</p>
+            <span class="section-label text-success">Los competidores</span>
+            <h2 class="h2 font-display text-forest">Integrantes del equipo</h2>
+            <p class="text-secondary">Conocé a quienes forman parte de {{ equipo.nombre }}.</p>
         </header>
 
-        <div class="participants-list">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
 
             {% for participante in equipo.participantes.all %}
 
-                <a class="participant-card"
+                <div class="col"><a class="card participant-card h-100 text-decoration-none shadow-sm"
                    href="{% url 'detalle_participante' participante.pk %}">
 
-                    <div class="participant-card-image">
+                    <div class="participant-card-media position-relative">
 
                         {% if participante.imagen %}
-                            <img src="{{ participante.imagen.url }}"
+                            <img class="card-img-top participant-card-image" src="{{ participante.imagen.url }}"
                                  alt="{{ participante.nombre }}">
                         {% else %}
-                            <div class="participant-placeholder">
+                            <div class="participant-placeholder d-flex align-items-center justify-content-center h-100">
                                 <span>{{ participante.nombre|first }}</span>
                             </div>
                         {% endif %}
 
-                        <span class="participant-country">
+                        <span class="badge text-bg-dark position-absolute bottom-0 start-0 m-3">
                             {{ participante.pais.nombre }}
                         </span>
 
                     </div>
 
-                    <div class="participant-card-info">
+                    <div class="card-body d-flex flex-column">
 
-                        <span class="participant-card-team">
+                        <span class="badge text-bg-success align-self-start mb-2">
                             {{ equipo.nombre }}
                         </span>
 
-                        <h2>{{ participante.apodo }}</h2>
+                        <h2 class="h4 font-display text-forest">{{ participante.apodo }}</h2>
 
-                        <p>
+                        <p class="text-secondary">
                             {{ participante.nombre }}
                             {{ participante.apellido }}
                         </p>
 
-                        <div class="participant-card-footer">
-                            <span>{{ participante.edad }} años</span>
+                        <div class="d-flex justify-content-between mt-auto pt-3 border-top">
+                            <span class="small text-secondary">{{ participante.edad }} años</span>
                             <span class="participant-card-arrow">↗</span>
                         </div>
 
                     </div>
 
                 </a>
+                </div>
 
             {% empty %}
 
-                <div class="participants-empty">
+                <div class="col-12"><div class="alert alert-light border">
                     <h2>Este equipo todavía no tiene integrantes</h2>
-                </div>
+                </div></div>
 
             {% endfor %}
 
@@ -142,38 +148,38 @@
 
 
     <!-- RECOMPENSAS -->
-    <section class="participant-section">
+    <section class="mb-5">
 
         <header class="participant-section-heading">
-            <span class="section-label">PREMIOS Y LOGROS</span>
-            <h2>Recompensas obtenidas</h2>
-            <p>Todos los beneficios conseguidos por el equipo durante la temporada.</p>
+            <span class="section-label text-success">Premios y logros</span>
+            <h2 class="h2 font-display text-forest">Recompensas obtenidas</h2>
+            <p class="text-secondary">Todos los beneficios conseguidos por el equipo durante la temporada.</p>
         </header>
 
-        <div class="team-rewards-list">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
 
             {% for recompensa in equipo.listado_recompensas %}
 
-                <article class="team-reward-card">
+                <article class="col"><div class="card team-reward-card h-100"><div class="card-body d-flex align-items-center gap-3">
 
-                    <span class="team-reward-icon">🎁</span>
+                    <span class="team-reward-icon" aria-hidden="true">🎁</span>
 
                     <div>
-                        <h3>Recompensa {{ forloop.counter }}</h3>
-                        <p>{{ recompensa }}</p>
+                        <h3 class="h5 text-forest">Recompensa {{ forloop.counter }}</h3>
+                        <p class="text-secondary mb-0">{{ recompensa }}</p>
                     </div>
 
-                </article>
+                </div></div></article>
 
             {% empty %}
 
-                <div class="participants-empty">
-                    <h2>Todavía no hay recompensas</h2>
-                    <p>
+                <div class="col-12"><div class="alert alert-light border">
+                    <h2 class="h5">Todavía no hay recompensas</h2>
+                    <p class="mb-0">
                         Cuando el equipo consiga alguna recompensa,
                         aparecerá en esta sección.
                     </p>
-                </div>
+                </div></div>
 
             {% endfor %}
 

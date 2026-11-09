@@ -5,74 +5,51 @@
 
 {% block content %}
 
-<article class="season-detail">
+<a class="btn btn-outline-success mb-3" href="{% url 'temporadas' %}">&larr; Todas las temporadas</a>
 
-    <a class="season-detail-back" href="{% url 'temporadas' %}">
-        &larr; Todas las temporadas
-    </a>
-
-    <div class="season-detail-content">
-
-        {% if temporada.imagen %}
-        <img class="season-detail-image"
-             src="{{ temporada.imagen.url }}"
-             alt="Imagen de {{ temporada.nombre }}">
-        {% else %}
-        <div class="season-detail-image season-detail-image-fallback"
-             aria-hidden="true">
-            {{ temporada.id_temporada|stringformat:"02d" }}
+<article class="card season-detail-card border-0 shadow-sm mb-5">
+    <div class="row g-0">
+        <div class="col-12 col-md-5">
+            {% if temporada.imagen %}
+            <img class="season-detail-image w-100 h-100" src="{{ temporada.imagen.url }}" alt="Imagen de {{ temporada.nombre }}">
+            {% else %}
+            <div class="season-detail-fallback d-flex align-items-center justify-content-center h-100" aria-hidden="true">{{ temporada.id_temporada|stringformat:"02d" }}</div>
+            {% endif %}
         </div>
-        {% endif %}
-
-        <div class="season-detail-copy">
-
-            <p class="current-season-kicker">
-                Temporada {{ temporada.id_temporada }}
-            </p>
-
-            <h1 class="season-detail-title">
-                {{ temporada.nombre }}
-            </h1>
-
-            <p class="season-detail-location">
-                {{ temporada.isla.nombre }} ·
-                {{ temporada.isla.pais.nombre }}
-            </p>
-
-            <dl class="season-detail-dates">
-                <div>
-                    <dt>Inicio</dt>
-                    <dd>{{ temporada.fecha_inicio|date:"d/m/Y" }}</dd>
-                </div>
-
-                <div>
-                    <dt>Finalización</dt>
-                    <dd>{{ temporada.fecha_fin|date:"d/m/Y" }}</dd>
-                </div>
-            </dl>
-
+        <div class="col-12 col-md-7">
+            <div class="card-body p-4 p-lg-5">
+                <p class="section-label text-success">Temporada {{ temporada.id_temporada }}</p>
+                <h1 class="display-5 font-display text-forest">{{ temporada.nombre }}</h1>
+                <p class="text-secondary">{{ temporada.isla.nombre }} · {{ temporada.isla.pais.nombre }}</p>
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Inicio</dt>
+                    <dd class="col-sm-8">{{ temporada.fecha_inicio|date:"d/m/Y" }}</dd>
+                    <dt class="col-sm-4">Finalización</dt>
+                    <dd class="col-sm-8 mb-0">{{ temporada.fecha_fin|date:"d/m/Y" }}</dd>
+                </dl>
+            </div>
         </div>
     </div>
-
 </article>
 
 
-<section class="pyramid-section" aria-labelledby="pyramid-title">
-    <div class="pyramid-heading">
-        <span class="section-label">El camino hacia la victoria</span>
-        <h2 id="pyramid-title">Pirámide de eliminaciones</h2>
-        <p>
+<section class="mb-5" aria-labelledby="pyramid-title">
+    <div class="mb-4">
+        <span class="section-label text-success">El camino hacia la victoria</span>
+        <h2 class="h1 font-display text-forest" id="pyramid-title">Pirámide de eliminaciones</h2>
+        <p class="text-secondary">
             Seguí el recorrido de los equipos a través de las eliminaciones
             de esta temporada.
         </p>
     </div>
 
-    <div class="pyramid">
+    <div class="card border-0 shadow-sm bg-light p-3 p-md-4">
+      <div class="d-grid gap-3">
 
-        <div class="pyramid-level pyramid-base">
-            <span class="pyramid-level-label">Todos los equipos</span>
+        <div class="text-center">
+            <span class="badge text-bg-dark mb-2">Todos los equipos</span>
 
-            <div class="pyramid-teams">
+            <div class="d-flex flex-wrap justify-content-center gap-2">
                 {% for item in equipos_piramide %}
                     <a
                         class="pyramid-team"
@@ -82,7 +59,7 @@
                         {{ item.equipo.nombre }}
                     </a>
                 {% empty %}
-                    <p class="pyramid-empty">
+                    <p class="text-secondary mb-0">
                         Todavía no hay equipos registrados.
                     </p>
                 {% endfor %}
@@ -90,29 +67,27 @@
         </div>
 
         {% for nivel in niveles_piramide %}
-            <div class="pyramid-elimination">
-                <span class="pyramid-elimination-label">
-                    Eliminación {{ nivel.numero }}
-                </span>
+            <div class="mx-auto w-100 pyramid-elimination">
+                <div class="text-center mb-2"><span class="badge text-bg-warning">Ronda {{ nivel.numero }}</span></div>
 
                 {% if nivel.eliminado %}
-                    <div class="elimination-bar">
-                        <span>Eliminado:</span>
+                    <div class="alert alert-danger d-flex flex-wrap justify-content-between align-items-center gap-2 mb-0">
+                        <span>Equipo eliminado</span>
                         <strong>{{ nivel.eliminado.nombre }}</strong>
                     </div>
                 {% else %}
-                    <div class="elimination-bar elimination-unknown">
+                    <div class="alert alert-secondary d-flex justify-content-between align-items-center mb-0">
                         <span>Eliminación pendiente</span>
-                        <span class="unknown-symbol">?</span>
+                        <span class="fw-bold">?</span>
                     </div>
                 {% endif %}
             </div>
         {% if not forloop.last %}
             <div class="pyramid-level">
-                <div class="pyramid-teams">
+                <div class="d-flex flex-wrap justify-content-center gap-2">
                     {% for item in nivel.equipos %}
                         <a
-                            class="pyramid-team"
+                            class="btn btn-outline-success pyramid-team"
                             href="{% url 'detalle_equipo' item.equipo.pk %}"
                             style="--alliance-color: {{ item.color_alianza|default:'#b8b8b8' }};"
                         >
@@ -121,7 +96,7 @@
                     {% endfor %}
 
                     {% for lugar in nivel.lugares_desconocidos %}
-                        <div class="pyramid-team pyramid-team-unknown">
+                        <div class="btn btn-outline-secondary disabled">
                             Equipo desconocido
                         </div>
                     {% endfor %}
@@ -130,83 +105,84 @@
         {% endif %}
         {% endfor %}
 
-        <div class="pyramid-champion">
-            <span class="pyramid-level-label">La cima</span>
+        <div class="text-center pt-2">
+            <span class="badge text-bg-success mb-2">La cima</span>
 
             {% if campeon %}
                 <a
-                    class="champion-card"
+                    class="card champion-card text-bg-dark border-warning text-decoration-none mx-auto"
                     href="{% url 'detalle_equipo' campeon.pk %}"
                 >
-                    <span class="champion-crown">♛</span>
-                    <strong>{{ campeon.nombre }}</strong>
-                    <span>Campeón de la temporada</span>
+                    <div class="card-body">
+                        <span class="champion-crown d-block" aria-hidden="true">♛</span>
+                        <strong class="font-display fs-4">{{ campeon.nombre }}</strong>
+                        <span class="d-block small">Campeón de la temporada</span>
+                    </div>
                 </a>
             {% else %}
-                <div class="champion-card champion-unknown">
-                    <span class="champion-crown">♛</span>
-                    <strong>Por definir</strong>
-                    <span>El campeón todavía no está registrado</span>
+                <div class="card champion-card bg-secondary text-white mx-auto">
+                    <div class="card-body">
+                        <span class="champion-crown d-block" aria-hidden="true">♛</span>
+                        <strong>Por definir</strong>
+                        <span class="d-block small">El campeón todavía no está registrado</span>
+                    </div>
                 </div>
             {% endif %}
         </div>
 
+      </div>
     </div>
 </section>
 
 <section class="teams-section" aria-labelledby="teams-title">
 
-    <header class="teams-heading">
+    <header class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
         <div>
-            <p class="seasons-kicker">Competidores</p>
-            <h2 class="teams-title" id="teams-title">
+            <p class="section-label text-success mb-1">Competidores</p>
+            <h2 class="h1 font-display text-forest mb-0" id="teams-title">
                 Equipos participantes
             </h2>
         </div>
 
-        <span class="seasons-count">
-            {{ temporada.equipos.all|length }} equipos
-        </span>
+        <span class="badge text-bg-dark">{{ temporada.equipos.all|length }} equipos</span>
     </header>
 
     {% if temporada.equipos.all %}
 
-    <div class="teams-list">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
 
         {% for equipo in temporada.equipos.all %}
 
-        <a
-            class="team-card"
-            href="{% url 'detalle_equipo' equipo.pk %}"
-            >
+        <div class="col">
+        <a class="card team-card h-100 text-decoration-none shadow-sm" href="{% url 'detalle_equipo' equipo.pk %}">
 
             {% if equipo.imagen %}
-            <img class="team-card-image"
+            <img class="card-img-top team-card-image"
                 src="{{ equipo.imagen.url }}"
                 alt="Imagen del equipo {{ equipo.nombre }}">
             {% else %}
-            <div class="team-card-image team-card-image-fallback"
+            <div class="team-card-fallback d-flex align-items-center justify-content-center"
                 aria-hidden="true">
                 {{ forloop.counter|stringformat:"02d" }}
             </div>
             {% endif %}
 
-            <div class="team-card-copy">
+            <div class="card-body">
 
-                <p class="team-card-label">
+                <p class="section-label text-success">
                     Equipo {{ forloop.counter }}
                 </p>
 
-                <h3 class="team-card-name">
+                <h3 class="h3 font-display text-forest">
                     {{ equipo.nombre }}
                 </h3>
 
-                <p class="team-card-points">
+                <p class="text-secondary">
                     {{ equipo.puntaje }} puntos
                 </p>
 
                 {% if equipo.es_ganador %}
-                <span class="team-card-winner">
+                <span class="badge text-bg-warning">
                     Ganador
                 </span>
                 {% endif %}
@@ -214,6 +190,7 @@
             </div>
 
         </a>
+        </div>
 
         {% endfor %}
 
@@ -221,9 +198,9 @@
 
     {% else %}
 
-    <p class="teams-empty">
+    <div class="alert alert-light border">
         Todavía no hay equipos registrados para esta temporada.
-    </p>
+    </div>
 
     {% endif %}
 

@@ -3,60 +3,73 @@
 {% block title %}Desafíos - The Challenge Island{% endblock %}
 
 {% block content %}
-<section class="challenges-page" aria-labelledby="challenges-title">
-    <header class="challenges-heading">
+<section aria-labelledby="challenges-title">
+    <header class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
         <div>
-            <p class="seasons-kicker">Pruebas de supervivencia</p>
-            <h1 class="challenges-title" id="challenges-title">Desafíos</h1>
+            <p class="section-label text-success mb-1">Pruebas de supervivencia</p>
+            <h1 class="display-5 font-display text-forest mb-0" id="challenges-title">Desafíos</h1>
         </div>
-        <span class="seasons-count">{{ desafios|length }} pruebas</span>
+        <span class="badge text-bg-dark">{{ desafios|length }} pruebas</span>
     </header>
 
-    <form class="challenge-filter" method="get" action="{% url 'desafios' %}">
-        <label for="temporada-id">Temporada</label>
-        <select id="temporada-id" name="temporada_id">
-            <option value="">Todas las temporadas</option>
-            {% for temporada in temporadas %}
-            <option value="{{ temporada.id_temporada }}"
-                    {% if temporada_seleccionada.id_temporada == temporada.id_temporada %}selected{% endif %}>
-                {{ temporada.nombre }}
-            </option>
-            {% endfor %}
-        </select>
-        <button class="challenge-filter-button" type="submit">Filtrar</button>
+    <form class="mb-4" method="get" action="{% url 'desafios' %}">
+        <label class="form-label fw-semibold" for="temporada-id">Filtrar por temporada</label>
+        <div class="input-group">
+            <span class="input-group-text" aria-hidden="true">Temporada</span>
+            <select class="form-select" id="temporada-id" name="temporada_id">
+                <option value="">Todas las temporadas</option>
+                {% for temporada in temporadas %}
+                <option value="{{ temporada.id_temporada }}"
+                        {% if temporada_seleccionada.id_temporada == temporada.id_temporada %}selected{% endif %}>
+                    {{ temporada.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" type="submit">Filtrar</button>
+        </div>
     </form>
 
     {% if desafios %}
-    <div class="challenge-grid">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
         {% for desafio in desafios %}
-        <article class="challenge-card">
-            <div class="challenge-card-topline">
-                <span class="challenge-type challenge-type-{{ desafio.tipo }}">
-                    {{ desafio.get_tipo_display }}
-                </span>
-                <span class="challenge-season">{{ desafio.temporada.nombre }}</span>
-            </div>
-            <h2 class="challenge-card-title">{{ desafio.nombre }}</h2>
-            <p class="challenge-description">{{ desafio.descripcion }}</p>
-            <div class="challenge-stakes">
+        <div class="col">
+            <article class="card challenge-card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                        {% if desafio.tipo == 'fisica' %}
+                        <span class="badge text-bg-danger">Física</span>
+                        {% elif desafio.tipo == 'mental' %}
+                        <span class="badge text-bg-primary">Mental</span>
+                        {% elif desafio.tipo == 'estrategica' %}
+                        <span class="badge text-bg-success">Estratégica</span>
+                        {% else %}
+                        <span class="badge text-bg-secondary">Prueba</span>
+                        {% endif %}
+                        <span class="small text-secondary">{{ desafio.temporada.nombre }}</span>
+                    </div>
+                    <h2 class="h4 font-display text-forest">{{ desafio.nombre }}</h2>
+                    <p class="text-secondary">{{ desafio.descripcion }}</p>
+                    <div class="d-flex flex-wrap gap-2 mt-auto pt-3 border-top">
                 {% if desafio.puntos %}
-                <span class="challenge-points">{{ desafio.puntos }} puntos</span>
+                        <span class="badge text-bg-warning">{{ desafio.puntos }} puntos</span>
                 {% endif %}
                 {% if desafio.recompensa %}
-                <span class="challenge-reward">{{ desafio.recompensa }}</span>
+                        <span class="badge text-bg-success">{{ desafio.recompensa }}</span>
                 {% endif %}
+                    </div>
+                </div>
+            </article>
             </div>
-        </article>
         {% endfor %}
     </div>
     {% else %}
-    <p class="challenges-empty">
+    <div class="alert alert-light border text-center">
         {% if temporada_seleccionada %}
         No hay desafíos registrados para {{ temporada_seleccionada.nombre }}.
         {% else %}
         Todavía no hay desafíos cargados.
         {% endif %}
-    </p>
+    </div>
     {% endif %}
 </section>
 {% endblock %}

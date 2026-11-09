@@ -2,17 +2,18 @@
 
 {% block content %}
 
-<section class="participant-detail">
+<section>
 
-    <a class="participant-back" href="{% url 'participantes' %}">
+    <a class="btn btn-outline-success mb-3" href="{% url 'participantes' %}">
         ← Volver a participantes
     </a>
 
     <!-- PRESENTACIÓN -->
 
-    <header class="participant-hero">
+    <header class="card participant-hero border-0 shadow-sm mb-5">
 
-        <div class="participant-hero-image">
+        <div class="row g-0">
+        <div class="col-12 col-md-4 participant-hero-image">
 
             {% if participante.imagen %}
                 <img
@@ -20,65 +21,68 @@
                     alt="{{ participante.nombre }}"
                 >
             {% else %}
-                <div class="participant-placeholder">
+                <div class="participant-placeholder d-flex align-items-center justify-content-center h-100">
                     <span>{{ participante.nombre|first }}</span>
                 </div>
             {% endif %}
 
         </div>
 
-        <div class="participant-hero-info">
+        <div class="col-12 col-md-8">
+        <div class="card-body p-4 p-lg-5">
 
-            <span class="section-label">PARTICIPANTE</span>
+            <span class="section-label text-success">Participante</span>
 
-            <h1>{{ participante.apodo }}</h1>
+            <h1 class="display-5 font-display text-forest">{{ participante.apodo }}</h1>
 
-            <h2>
+            <h2 class="h4 text-secondary">
                 {{ participante.nombre }}
                 {{ participante.apellido }}
             </h2>
 
-            <span class="participant-team-badge">
+            <span class="badge text-bg-success">
                 {{ participante.equipo.nombre }}
             </span>
 
+        </div>
+        </div>
         </div>
 
     </header>
 
     <!-- INFORMACIÓN PERSONAL -->
 
-    <section class="participant-section">
+    <section class="mb-5">
 
         <div class="participant-section-heading">
-            <span class="section-label">01 / PERFIL</span>
-            <h2>Información personal</h2>
+            <span class="section-label text-success">01 / Perfil</span>
+            <h2 class="h2 font-display text-forest">Información personal</h2>
         </div>
 
-        <div class="participant-info-grid">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3">
 
-            <article class="participant-info-card">
-                <span>Nombre completo</span>
-                <strong>
+            <article class="col"><div class="card h-100"><div class="card-body">
+                <span class="small text-secondary d-block">Nombre completo</span>
+                <strong class="text-forest">
                     {{ participante.nombre }}
                     {{ participante.apellido }}
                 </strong>
-            </article>
+            </div></div></article>
 
-            <article class="participant-info-card">
-                <span>Apodo</span>
+            <article class="col"><div class="card h-100"><div class="card-body">
+                <span class="small text-secondary d-block">Apodo</span>
                 <strong>{{ participante.apodo }}</strong>
-            </article>
+            </div></div></article>
 
-            <article class="participant-info-card">
-                <span>Edad</span>
+            <article class="col"><div class="card h-100"><div class="card-body">
+                <span class="small text-secondary d-block">Edad</span>
                 <strong>{{ participante.edad }} años</strong>
-            </article>
+            </div></div></article>
 
-            <article class="participant-info-card">
-                <span>País</span>
+            <article class="col"><div class="card h-100"><div class="card-body">
+                <span class="small text-secondary d-block">País</span>
                 <strong>{{ participante.pais.nombre }}</strong>
-            </article>
+            </div></div></article>
 
         </div>
 
@@ -86,26 +90,26 @@
 
     <!-- INFORMACIÓN DE COMPETENCIA -->
 
-    <section class="participant-section">
+    <section class="mb-5">
 
         <div class="participant-section-heading">
-            <span class="section-label">02 / COMPETENCIA</span>
-            <h2>Su trayectoria en la isla</h2>
+            <span class="section-label text-success">02 / Competencia</span>
+            <h2 class="h2 font-display text-forest">Su trayectoria en la isla</h2>
         </div>
 
-        <div class="participant-info-grid">
+        <div class="row row-cols-1 row-cols-sm-2 g-3">
 
-            <article class="participant-info-card">
-                <span>Equipo</span>
+            <article class="col"><div class="card h-100"><div class="card-body">
+                <span class="small text-secondary d-block">Equipo</span>
                 <strong>{{ participante.equipo.nombre }}</strong>
-            </article>
+            </div></div></article>
 
-            <article class="participant-info-card">
-                <span>Temporada</span>
-                <strong>
+            <article class="col"><div class="card h-100"><div class="card-body">
+                <span class="small text-secondary d-block">Temporada</span>
+                <strong class="text-forest">
                     {{ participante.equipo.temporada.nombre }}
                 </strong>
-            </article>
+            </div></div></article>
 
         </div>
 
@@ -113,51 +117,53 @@
 
     <!-- ESTADÍSTICAS -->
 
-    <section class="participant-section participant-stats-section">
+    <section class="mb-5">
 
         <div class="participant-section-heading">
-            <span class="section-label">03 / RENDIMIENTO</span>
-            <h2>Estadísticas</h2>
-            <p>
+            <span class="section-label text-success">03 / Rendimiento</span>
+            <h2 class="h2 font-display text-forest">Estadísticas</h2>
+            <p class="text-secondary">
                 Conocé las habilidades y el rendimiento
                 del participante.
             </p>
         </div>
 
-        <div class="participant-stats">
+        <div class="row row-cols-1 row-cols-lg-2 g-3">
 
             {% for estadistica in estadisticas %}
 
-                <article class="stat-card">
+                <article class="col"><div class="card stat-card h-100"><div class="card-body">
 
-                    <div class="stat-info">
-                        <div>
-                            <h3>{{ estadistica.nombre }}</h3>
-                            <p>{{ estadistica.descripcion }}</p>
+                    <div class="d-flex justify-content-between gap-3">
+                        <div class="min-w-0">
+                            <h3 class="h5 font-display text-forest">{{ estadistica.nombre }}</h3>
+                            <p class="text-secondary">{{ estadistica.descripcion }}</p>
                         </div>
 
-                        <strong class="stat-value">
+                        <strong class="text-nowrap text-forest">
                             {{ estadistica.cantidad }}
                             <span>/ 100</span>
                         </strong>
                     </div>
 
-                    <div class="stat-bar">
+                    <div class="progress" role="progressbar" aria-label="{{ estadistica.nombre }}" aria-valuenow="{{ estadistica.porcentaje }}" aria-valuemin="0" aria-valuemax="100">
                         <div
-                            class="stat-bar-fill"
+                            class="progress-bar bg-success"
                             style="width: {{ estadistica.porcentaje }}%;"
                         ></div>
                     </div>
 
-                </article>
+                </div></div></article>
 
             {% empty %}
 
-                <div class="participants-empty">
-                    <p>
+                <div class="col-12">
+                <div class="alert alert-light border">
+                    <p class="mb-0">
                         Este participante todavía no tiene
                         estadísticas registradas.
                     </p>
+                </div>
                 </div>
 
             {% endfor %}
