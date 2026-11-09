@@ -26,6 +26,26 @@ class AdminImagePreviewTests(TestCase):
 	def setUp(self):
 		self.client.force_login(self.admin_user)
 
+	def test_admin_dashboard_shows_model_actions_and_recent_activity(self):
+		response = self.client.get(reverse('admin:index'))
+
+		self.assertEqual(response.status_code, 200)
+		self.assertTemplateUsed(response, 'admin/index.html')
+		self.assertContains(response, 'Centro de gestión')
+		self.assertContains(response, 'Acciones recientes')
+		self.assertContains(
+			response,
+			reverse(
+				f'admin:{Temporada._meta.app_label}_{Temporada._meta.model_name}_changelist'
+			),
+		)
+		self.assertContains(
+			response,
+			reverse(
+				f'admin:{Temporada._meta.app_label}_{Temporada._meta.model_name}_add'
+			),
+		)
+
 	def test_add_form_includes_preview_notice_and_shared_styles(self):
 		url = reverse(
 			f'admin:{Pais._meta.app_label}_{Pais._meta.model_name}_add'

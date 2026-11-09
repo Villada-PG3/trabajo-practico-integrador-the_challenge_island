@@ -179,9 +179,291 @@ ol.breadcrumbs {
     font-weight: 700;
 }
 
+.admin-dashboard-hero {
+    overflow: hidden;
+    color: var(--header-color);
+    background:
+        radial-gradient(circle at 90% 10%, rgba(185, 214, 106, 0.18), transparent 28%),
+        linear-gradient(120deg, var(--header-bg), var(--primary));
+}
+
+.admin-dashboard-eyebrow,
+.admin-section-kicker,
+.admin-dashboard-shortcuts-label {
+    color: var(--header-branding-color);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.admin-dashboard-title {
+    color: var(--header-color);
+    font-family: "Barlow Condensed", Impact, sans-serif;
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.admin-dashboard-description {
+    max-width: 42rem;
+    color: var(--header-color);
+    font-size: 0.9375rem;
+    opacity: 0.82;
+}
+
+.admin-dashboard-shortcuts {
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.admin-dashboard .admin-shortcut {
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: var(--header-color);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-dashboard .admin-shortcut:hover,
+.admin-dashboard .admin-shortcut:focus-visible {
+    color: var(--header-bg);
+    background: var(--header-branding-color);
+}
+
+.admin-section-heading h2,
+.admin-recent-card h2 {
+    color: var(--body-loud-color);
+    font-family: "Barlow Condensed", Impact, sans-serif;
+    font-weight: 700;
+}
+
+.admin-section-heading .admin-section-kicker,
+.admin-recent-card .admin-section-kicker {
+    color: var(--body-quiet-color);
+}
+
+.admin-section-note {
+    color: var(--body-quiet-color);
+    font-size: 0.8125rem;
+}
+
+.admin-app-section,
+.admin-recent-card {
+    color: var(--body-fg);
+    background: var(--body-bg);
+}
+
+.admin-app-section .card-header,
+.admin-recent-card .card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--hairline-color);
+    background: var(--body-bg);
+}
+
+.admin-app-section .card-header h3 {
+    color: var(--body-loud-color);
+    font-family: "Barlow Condensed", Impact, sans-serif;
+    font-weight: 700;
+}
+
+.admin-app-link {
+    color: var(--link-fg);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.admin-app-link:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+.admin-model-card {
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid var(--hairline-color);
+    border-radius: 0.625rem;
+    background: var(--body-bg);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.admin-model-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--link-fg);
+    box-shadow: 0 0.35rem 1rem rgba(16, 39, 31, 0.08);
+}
+
+.admin-model-mark {
+    display: inline-flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.625rem;
+    color: var(--link-fg);
+    background: var(--selected-bg);
+    font-family: "Barlow Condensed", Impact, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.admin-model-name {
+    color: var(--body-loud-color);
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.admin-model-caption {
+    color: var(--body-quiet-color);
+    font-size: 0.75rem;
+}
+
+.admin-dashboard .btn-success {
+    border-color: var(--button-bg);
+    color: var(--button-fg);
+    background: var(--button-bg);
+}
+
+.admin-dashboard .btn-success:hover,
+.admin-dashboard .btn-success:focus-visible {
+    border-color: var(--button-hover-bg);
+    background: var(--button-hover-bg);
+}
+
+.admin-dashboard .btn-outline-success {
+    border-color: var(--button-bg);
+    color: var(--link-fg);
+}
+
+.admin-dashboard .btn-outline-success:hover,
+.admin-dashboard .btn-outline-success:focus-visible {
+    border-color: var(--button-bg);
+    color: var(--button-fg);
+    background: var(--button-bg);
+}
+
+.admin-activity-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.admin-activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.admin-activity-mark,
+.admin-activity-empty-mark {
+    display: inline-flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex: 0 0 1.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--link-fg);
+    background: var(--selected-bg);
+    font-weight: 700;
+}
+
+.admin-activity-mark.is-add {
+    color: #28614d;
+    background: #e4efe8;
+}
+
+.admin-activity-mark.is-delete {
+    color: #963b31;
+    background: #f7e7e3;
+}
+
+.admin-activity-type,
+.admin-activity-model {
+    color: var(--body-quiet-color);
+    font-size: 0.75rem;
+}
+
+.admin-activity-object {
+    overflow-wrap: anywhere;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.admin-activity-object a {
+    color: var(--link-fg);
+    text-decoration: none;
+}
+
+.admin-activity-object a:hover {
+    text-decoration: underline;
+}
+
+.admin-activity-empty {
+    padding: 1rem 0.25rem;
+    color: var(--body-quiet-color);
+    text-align: center;
+}
+
+.admin-activity-empty-mark {
+    margin-bottom: 0.75rem;
+    color: var(--link-fg);
+}
+
+.admin-model-card .flex-grow-1,
+.admin-activity-item > div {
+    min-width: 0;
+}
+
 .module,
 .submit-row {
     border-radius: 6px;
+}
+
+.change-list #changelist,
+.change-form #content-main > form,
+.delete-confirmation #content-main > form {
+    border-radius: 0.75rem;
+}
+
+.change-list .results,
+.change-list .paginator,
+.change-form #content-main > form fieldset,
+.delete-confirmation #content-main > form {
+    overflow: hidden;
+    border: 1px solid var(--hairline-color);
+    border-radius: 0.75rem;
+    background: var(--body-bg);
+}
+
+.change-list .results thead th {
+    background: var(--darkened-bg);
+}
+
+.change-list .results tbody tr:hover {
+    background: var(--selected-bg);
+}
+
+.change-form #content-main > form fieldset {
+    margin-bottom: 1rem;
+    padding: 1.25rem;
+}
+
+.change-form .form-row {
+    border-bottom-color: var(--hairline-color);
+}
+
+.change-form .help,
+.change-form .help-tooltip,
+.change-form .fieldBox .help {
+    color: var(--body-quiet-color);
+}
+
+.change-form .submit-row,
+.delete-confirmation .submit-row {
+    border: 1px solid var(--hairline-color);
+    border-radius: 0.75rem;
 }
 
 .submit-row a.deletelink,
