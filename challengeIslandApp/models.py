@@ -343,9 +343,15 @@ class Desafio(models.Model):
     )
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
-    puntos = models.PositiveIntegerField(default=0)
-    recompensa = models.CharField(max_length=200)
-
+    puntos = models.PositiveIntegerField(default=0, null=True, blank=True)
+    recompensa = models.CharField(max_length=200, null=True, blank=True)
+    
+    def clean(self):
+        super().clean() 
+        if not self.puntos and not self.recompensa:
+            raise ValidationError(
+                "Debes rellenar obligatoriamente uno de los dos campos ('puntos' o 'recompensa')."
+            )
     def __str__(self):
         return self.nombre
 
@@ -362,7 +368,6 @@ class SuperadorDesafio(models.Model):
         on_delete=models.PROTECT,
         related_name='desafios_superados'
     )
-    puntaje_obtenido = models.PositiveIntegerField(default=0)
 
     class Meta:
         constraints = [

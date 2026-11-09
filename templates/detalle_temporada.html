@@ -84,11 +84,11 @@
 
             {% if equipo.imagen %}
             <img class="team-card-image"
-                 src="{{ equipo.imagen.url }}"
-                 alt="Imagen del equipo {{ equipo.nombre }}">
+                src="{{ equipo.imagen.url }}"
+                alt="Imagen del equipo {{ equipo.nombre }}">
             {% else %}
             <div class="team-card-image team-card-image-fallback"
-                 aria-hidden="true">
+                aria-hidden="true">
                 {{ forloop.counter|stringformat:"02d" }}
             </div>
             {% endif %}
