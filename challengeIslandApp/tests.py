@@ -1,11 +1,70 @@
 from datetime import date
 
+from django.apps import apps
+from django.contrib.auth import get_user_model
+from django.db.models import ImageField
 from django.test import TestCase
 from django.urls import reverse
 
 from .models import Desafio, Isla, Pais, Temporada
 
 # Create your tests here.
+class AdminImagePreviewTests(TestCase):
+	@classmethod
+	def setUpTestData(cls):
+		cls.admin_user = get_user_model().objects.create_superuser(
+			username='admin',
+			email='admin@example.com',
+			password='test-password',
+		)
+		cls.pais = Pais.objects.create(
+			nombre='Argentina',
+			descripcion='Pais de prueba',
+			imagen='paises/argentina.jpg',
+		)
+
+	def setUp(self):
+		self.client.force_login(self.admin_user)
+
+	def test_add_form_includes_preview_notice_and_shared_styles(self):
+		url = reverse(
+			f'admin:{Pais._meta.app_label}_{Pais._meta.model_name}_add'
+		)
+		response = self.client.get(url)
+
+		self.assertContains(response, 'La vista previa estará disponible después de guardar')
+		self.assertNotContains(response, 'admin_image_preview.js')
+		self.assertContains(response, 'css/estilos.css')
+		self.assertContains(response, 'bootstrap@5.3.3')
+
+	def test_change_form_displays_saved_image_preview(self):
+		url = reverse(
+			f'admin:{Pais._meta.app_label}_{Pais._meta.model_name}_change',
+			args=(self.pais.pk,),
+		)
+		response = self.client.get(url)
+
+		self.assertContains(response, 'src="/media/paises/argentina.jpg"')
+		self.assertContains(response, 'admin-image-preview__image')
+
+	def test_only_the_four_requested_models_have_image_fields(self):
+		image_fields = {
+			model.__name__: field
+			for model in apps.get_app_config('challengeIslandApp').get_models()
+			for field in model._meta.get_fields()
+			if isinstance(field, ImageField)
+		}
+
+		self.assertEqual(
+			set(image_fields),
+			{'Pais', 'Temporada', 'Equipo', 'Participante'},
+		)
+		self.assertEqual(image_fields['Pais'].upload_to, 'paises/')
+		self.assertEqual(image_fields['Temporada'].upload_to, 'temporadas/')
+		self.assertEqual(image_fields['Equipo'].upload_to, 'equipos/')
+		self.assertEqual(image_fields['Participante'].upload_to, 'participantes/')
+
+
 class DesafiosViewTests(TestCase):
 	@classmethod
 	def setUpTestData(cls):

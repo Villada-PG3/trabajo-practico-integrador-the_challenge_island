@@ -13,7 +13,7 @@ class Pais(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     imagen = models.ImageField(
-        upload_to='media/paises/',
+        upload_to='paises/',
         blank=True,
         null=True
     )
@@ -43,7 +43,7 @@ class Temporada(models.Model):
     id_temporada = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     imagen = models.ImageField(
-        upload_to='media/temporadas/',
+        upload_to='temporadas/',
         blank=True,
         null=True
     )
