@@ -705,3 +705,488 @@ a {
 }
 
 
+
+/* PARTICIPANTES */
+
+.participants-page {
+    padding: 40px 0;
+}
+
+.participants-heading {
+    margin-bottom: 30px;
+}
+
+.participants-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.participant-card {
+    display: block;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.participant-card:hover {
+    transform: translateY(-5px);
+}
+
+.participant-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.participant-placeholder {
+    height: 260px;
+    display: grid;
+    place-items: center;
+    background: var(--paper);
+}
+
+.participant-card-info {
+    padding: 18px;
+}
+
+/* DETALLE DEL PARTICIPANTE */
+
+.participant-detail {
+    padding: 40px 0;
+}
+
+.participant-profile {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 30px 0 50px;
+}
+
+.participant-profile img {
+    width: 260px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.participant-stats {
+    max-width: 700px;
+}
+
+.stat-item {
+    margin: 25px 0;
+}
+
+.stat-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-bar {
+    width: 100%;
+    height: 14px;
+    overflow: hidden;
+    background: var(--line);
+    border-radius: 20px;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    background: var(--leaf);
+    border-radius: 20px;
+    transition: width 0.3s ease;
+}
+
+@media (max-width: 640px) {
+    .participant-profile {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .participant-profile img {
+        width: 100%;
+        height: 300px;
+    }
+}
+
+/* =========================================
+   PARTICIPANTES - LISTADO
+========================================= */
+
+.participants-page {
+    padding: 55px 0;
+}
+
+.participants-heading {
+    margin-bottom: 35px;
+}
+
+.section-label {
+    display: block;
+    color: var(--coral);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.participants-heading h1,
+.participant-section-heading h2 {
+    font-family: var(--font-display);
+    color: var(--forest);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.participants-heading p,
+.participant-section-heading p {
+    color: var(--ink-soft);
+    margin-top: 10px;
+}
+
+.participants-count {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.participants-list {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(220px, 1fr)
+    );
+    gap: 25px;
+}
+
+.participant-card {
+    display: block;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.participant-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(16, 39, 31, 0.12);
+}
+
+.participant-card-image {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    background: var(--paper);
+}
+
+.participant-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.participant-card:hover img {
+    transform: scale(1.05);
+}
+
+.participant-country {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    padding: 6px 12px;
+    background: var(--forest);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
+
+.participant-placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: var(--forest);
+    color: var(--leaf);
+    font-family: var(--font-display);
+    font-size: 5rem;
+}
+
+.participant-card-info {
+    padding: 20px;
+}
+
+.participant-card-team {
+    color: var(--coral);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.participant-card-info h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--forest);
+    margin: 8px 0 0;
+    text-transform: uppercase;
+}
+
+.participant-card-info p {
+    color: var(--ink-soft);
+    margin: 0;
+}
+
+.participant-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--line);
+    margin-top: 18px;
+    padding-top: 14px;
+    font-size: 0.85rem;
+}
+
+.participant-card-arrow {
+    color: var(--forest);
+    font-size: 1.3rem;
+}
+
+.participants-empty {
+    padding: 35px;
+    background: var(--paper);
+    border-radius: 12px;
+    color: var(--ink-soft);
+}
+
+
+/* =========================================
+   DETALLE DEL PARTICIPANTE
+========================================= */
+
+.participant-detail {
+    padding: 40px 0 70px;
+}
+
+.participant-back {
+    display: inline-block;
+    color: var(--forest);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.participant-back:hover {
+    color: var(--coral);
+}
+
+.participant-hero {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    align-items: center;
+    gap: 45px;
+    padding: 35px;
+    background: var(--forest);
+    border-radius: 18px;
+    color: white;
+    margin-bottom: 55px;
+}
+
+.participant-hero-image {
+    height: 350px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--forest-deep);
+}
+
+.participant-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.participant-hero-info .section-label {
+    color: var(--leaf);
+}
+
+.participant-hero-info h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+}
+
+.participant-hero-info h2 {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.participant-team-badge {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 9px 16px;
+    background: var(--leaf);
+    color: var(--forest-deep);
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+
+/* =========================================
+   SECCIONES DE INFORMACIÓN
+========================================= */
+
+.participant-section {
+    margin-bottom: 55px;
+}
+
+.participant-section-heading {
+    margin-bottom: 25px;
+}
+
+.participant-section-heading h2 {
+    font-size: 2.5rem;
+}
+
+.participant-info-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(200px, 1fr)
+    );
+    gap: 18px;
+}
+
+.participant-info-card {
+    padding: 22px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--leaf);
+    border-radius: 10px;
+}
+
+.participant-info-card span {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin-bottom: 9px;
+}
+
+.participant-info-card strong {
+    color: var(--forest);
+    font-size: 1.1rem;
+}
+
+
+/* =========================================
+   ESTADÍSTICAS Y BARRAS DE PROGRESO
+========================================= */
+
+.participant-stats {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+    );
+    gap: 18px;
+}
+
+.stat-card {
+    padding: 22px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.stat-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.stat-info h3 {
+    color: var(--forest);
+    font-size: 1.1rem;
+    margin: 0 0 6px;
+}
+
+.stat-info p {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.stat-value {
+    color: var(--forest);
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    white-space: nowrap;
+}
+
+.stat-value span {
+    color: var(--ink-soft);
+    font-size: 1rem;
+}
+
+.stat-bar {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    background: #e4e9e3;
+    border-radius: 20px;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    background: #39965c;
+    border-radius: 20px;
+    transition: width 0.7s ease;
+}
+
+
+/* =========================================
+   DISEÑO RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .participant-hero {
+        grid-template-columns: 1fr;
+        padding: 22px;
+        gap: 25px;
+    }
+
+    .participant-hero-image {
+        height: 300px;
+    }
+
+    .participant-hero-info h1 {
+        font-size: 3.5rem;
+    }
+
+    .participant-info-grid,
+    .participant-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .participants-page {
+        padding: 35px 0;
+    }
+
+}

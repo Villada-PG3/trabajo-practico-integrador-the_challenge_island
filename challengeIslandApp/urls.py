@@ -9,6 +9,14 @@ urlpatterns = [
     path(
         "temporada/<int:pk>/",
         views.DetalleTemporadaView.as_view(),
-        name="detalle_temporada",
-    ),
+        name="detalle_temporada",),
+    path(
+            'participantes/',
+            views.ParticipantesView.as_view(),
+            name='participantes'),
+    path(
+            'participante/<int:pk>/',
+            views.DetalleParticipanteView.as_view(),
+            name='detalle_participante'
+        ),
 ]

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="participants-page">
+
+    <header class="participants-heading">
+        <span class="section-label">THE CHALLENGE ISLAND</span>
+        <h1>Los participantes</h1>
+        <p>
+            Conocé a los competidores que forman parte
+            de esta aventura.
+        </p>
+    </header>
+
+    <div class="participants-count">
+        {{ participantes|length }} participantes registrados
+    </div>
+
+    <div class="participants-list">
+
+        {% for participante in participantes %}
+
+            <a
+                class="participant-card"
+                href="{% url 'detalle_participante' participante.pk %}"
+            >
+
+                <div class="participant-card-image">
+
+                    {% if participante.imagen %}
+                        <img
+                            src="{{ participante.imagen.url }}"
+                            alt="{{ participante.nombre }}"
+                        >
+                    {% else %}
+                        <div class="participant-placeholder">
+                            <span>{{ participante.nombre|first }}</span>
+                        </div>
+                    {% endif %}
+
+                    <span class="participant-country">
+                        {{ participante.pais.nombre }}
+                    </span>
+
+                </div>
+
+                <div class="participant-card-info">
+
+                    <span class="participant-card-team">
+                        {{ participante.equipo.nombre }}
+                    </span>
+
+                    <h2>{{ participante.apodo }}</h2>
+
+                    <p>
+                        {{ participante.nombre }}
+                        {{ participante.apellido }}
+                    </p>
+
+                    <div class="participant-card-footer">
+                        <span>{{ participante.edad }} años</span>
+                        <span class="participant-card-arrow">↗</span>
+                    </div>
+
+                </div>
+
+            </a>
+
+        {% empty %}
+
+            <div class="participants-empty">
+                <h2>No hay participantes todavía</h2>
+                <p>Cuando se registren participantes, aparecerán aquí.</p>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

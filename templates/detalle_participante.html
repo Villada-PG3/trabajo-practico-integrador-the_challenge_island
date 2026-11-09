@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="participant-detail">
+
+    <a class="participant-back" href="{% url 'participantes' %}">
+        ← Volver a participantes
+    </a>
+
+    <!-- PRESENTACIÓN -->
+
+    <header class="participant-hero">
+
+        <div class="participant-hero-image">
+
+            {% if participante.imagen %}
+                <img
+                    src="{{ participante.imagen.url }}"
+                    alt="{{ participante.nombre }}"
+                >
+            {% else %}
+                <div class="participant-placeholder">
+                    <span>{{ participante.nombre|first }}</span>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="participant-hero-info">
+
+            <span class="section-label">PARTICIPANTE</span>
+
+            <h1>{{ participante.apodo }}</h1>
+
+            <h2>
+                {{ participante.nombre }}
+                {{ participante.apellido }}
+            </h2>
+
+            <span class="participant-team-badge">
+                {{ participante.equipo.nombre }}
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- INFORMACIÓN PERSONAL -->
+
+    <section class="participant-section">
+
+        <div class="participant-section-heading">
+            <span class="section-label">01 / PERFIL</span>
+            <h2>Información personal</h2>
+        </div>
+
+        <div class="participant-info-grid">
+
+            <article class="participant-info-card">
+                <span>Nombre completo</span>
+                <strong>
+                    {{ participante.nombre }}
+                    {{ participante.apellido }}
+                </strong>
+            </article>
+
+            <article class="participant-info-card">
+                <span>Apodo</span>
+                <strong>{{ participante.apodo }}</strong>
+            </article>
+
+            <article class="participant-info-card">
+                <span>Edad</span>
+                <strong>{{ participante.edad }} años</strong>
+            </article>
+
+            <article class="participant-info-card">
+                <span>País</span>
+                <strong>{{ participante.pais.nombre }}</strong>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- INFORMACIÓN DE COMPETENCIA -->
+
+    <section class="participant-section">
+
+        <div class="participant-section-heading">
+            <span class="section-label">02 / COMPETENCIA</span>
+            <h2>Su trayectoria en la isla</h2>
+        </div>
+
+        <div class="participant-info-grid">
+
+            <article class="participant-info-card">
+                <span>Equipo</span>
+                <strong>{{ participante.equipo.nombre }}</strong>
+            </article>
+
+            <article class="participant-info-card">
+                <span>Temporada</span>
+                <strong>
+                    {{ participante.equipo.temporada.nombre }}
+                </strong>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- ESTADÍSTICAS -->
+
+    <section class="participant-section participant-stats-section">
+
+        <div class="participant-section-heading">
+            <span class="section-label">03 / RENDIMIENTO</span>
+            <h2>Estadísticas</h2>
+            <p>
+                Conocé las habilidades y el rendimiento
+                del participante.
+            </p>
+        </div>
+
+        <div class="participant-stats">
+
+            {% for estadistica in estadisticas %}
+
+                <article class="stat-card">
+
+                    <div class="stat-info">
+                        <div>
+                            <h3>{{ estadistica.nombre }}</h3>
+                            <p>{{ estadistica.descripcion }}</p>
+                        </div>
+
+                        <strong class="stat-value">
+                            {{ estadistica.cantidad }}
+                            <span>/ 100</span>
+                        </strong>
+                    </div>
+
+                    <div class="stat-bar">
+                        <div
+                            class="stat-bar-fill"
+                            style="width: {{ estadistica.porcentaje }}%;"
+                        ></div>
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <div class="participants-empty">
+                    <p>
+                        Este participante todavía no tiene
+                        estadísticas registradas.
+                    </p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</section>
+
+{% endblock %}

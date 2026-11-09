@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator
 from django.db.models import UniqueConstraint
 
 
@@ -285,7 +286,7 @@ class DetalleConjunto(models.Model):
         on_delete=models.CASCADE,
         related_name='detalles'
     )
-    cantidad = models.PositiveIntegerField(default=0)
+    cantidad = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(100)])
 
     class Meta:
         constraints = [
