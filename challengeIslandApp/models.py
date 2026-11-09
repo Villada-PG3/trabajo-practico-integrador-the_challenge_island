@@ -336,6 +336,11 @@ class Eliminacion(models.Model):
 # =====================================================
 
 class Desafio(models.Model):
+    class TipoDesafio(models.TextChoices):
+        FISICA = 'fisica', 'Física'
+        MENTAL = 'mental', 'Mental'
+        ESTRATEGICA = 'estrategica', 'Estratégica'
+
     id_desafio = models.AutoField(primary_key=True)
     temporada = models.ForeignKey(
         Temporada,
@@ -344,6 +349,11 @@ class Desafio(models.Model):
     )
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
+    tipo = models.CharField(
+        max_length=12,
+        choices=TipoDesafio.choices,
+        default=TipoDesafio.ESTRATEGICA,
+    )
     puntos = models.PositiveIntegerField(default=0, null=True, blank=True)
     recompensa = models.CharField(max_length=200, null=True, blank=True)
     

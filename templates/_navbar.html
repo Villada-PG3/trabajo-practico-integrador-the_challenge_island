@@ -32,8 +32,9 @@
                 aria-current="page">
                 Participantes
             </a>
-            <a class="nav-link"
-               href="#">
+                <a class="nav-link{% if request.resolver_match.url_name == 'desafios' %} nav-link-active{% endif %}"
+                    href="{% url 'desafios' %}"
+                    {% if request.resolver_match.url_name == 'desafios' %}aria-current="page"{% endif %}>
                 Desafíos
             </a>
         </nav>

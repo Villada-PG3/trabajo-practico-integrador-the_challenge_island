@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Desafíos - The Challenge Island{% endblock %}
+
+{% block content %}
+<section class="challenges-page" aria-labelledby="challenges-title">
+    <header class="challenges-heading">
+        <div>
+            <p class="seasons-kicker">Pruebas de supervivencia</p>
+            <h1 class="challenges-title" id="challenges-title">Desafíos</h1>
+        </div>
+        <span class="seasons-count">{{ desafios|length }} pruebas</span>
+    </header>
+
+    <form class="challenge-filter" method="get" action="{% url 'desafios' %}">
+        <label for="temporada-id">Temporada</label>
+        <select id="temporada-id" name="temporada_id">
+            <option value="">Todas las temporadas</option>
+            {% for temporada in temporadas %}
+            <option value="{{ temporada.id_temporada }}"
+                    {% if temporada_seleccionada.id_temporada == temporada.id_temporada %}selected{% endif %}>
+                {{ temporada.nombre }}
+            </option>
+            {% endfor %}
+        </select>
+        <button class="challenge-filter-button" type="submit">Filtrar</button>
+    </form>
+
+    {% if desafios %}
+    <div class="challenge-grid">
+        {% for desafio in desafios %}
+        <article class="challenge-card">
+            <div class="challenge-card-topline">
+                <span class="challenge-type challenge-type-{{ desafio.tipo }}">
+                    {{ desafio.get_tipo_display }}
+                </span>
+                <span class="challenge-season">{{ desafio.temporada.nombre }}</span>
+            </div>
+            <h2 class="challenge-card-title">{{ desafio.nombre }}</h2>
+            <p class="challenge-description">{{ desafio.descripcion }}</p>
+            <div class="challenge-stakes">
+                {% if desafio.puntos %}
+                <span class="challenge-points">{{ desafio.puntos }} puntos</span>
+                {% endif %}
+                {% if desafio.recompensa %}
+                <span class="challenge-reward">{{ desafio.recompensa }}</span>
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="challenges-empty">
+        {% if temporada_seleccionada %}
+        No hay desafíos registrados para {{ temporada_seleccionada.nombre }}.
+        {% else %}
+        Todavía no hay desafíos cargados.
+        {% endif %}
+    </p>
+    {% endif %}
+</section>
+{% endblock %}
